@@ -1,0 +1,216 @@
+USE [db217634]
+GO
+/****** Object:  Table [dbo].[Projekt_Autorzy]    Script Date: 10.06.2024 04:09:43 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Projekt_Autorzy](
+	[id_autora] [int] IDENTITY(1,1) NOT NULL,
+	[imię] [varchar](50) NOT NULL,
+	[nazwisko] [varchar](50) NOT NULL,
+	[data_urodzenia] [date] NULL,
+	[narodowość] [varchar](50) NULL,
+ CONSTRAINT [PK_Projekt_Autorzy] PRIMARY KEY CLUSTERED 
+(
+	[id_autora] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Projekt_Czytelnicy]    Script Date: 10.06.2024 04:09:44 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Projekt_Czytelnicy](
+	[id_czytelnika] [int] IDENTITY(1,1) NOT NULL,
+	[imię] [varchar](50) NOT NULL,
+	[nazwisko] [varchar](50) NOT NULL,
+	[nr telefonu] [int] NULL,
+	[data urodzenia] [date] NULL,
+ CONSTRAINT [Czytelnicy_PK] PRIMARY KEY CLUSTERED 
+(
+	[id_czytelnika] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Projekt_Działy]    Script Date: 10.06.2024 04:09:44 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Projekt_Działy](
+	[nazwa] [varchar](50) NOT NULL,
+	[ilość_książek] [int] NOT NULL,
+	[liczba_autorów] [int] NOT NULL,
+	[liczba_poddziałów] [int] NULL,
+ CONSTRAINT [PK_Projekt_Działy] PRIMARY KEY CLUSTERED 
+(
+	[nazwa] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Projekt_Książki]    Script Date: 10.06.2024 04:09:44 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Projekt_Książki](
+	[nr_egzemplarza] [int] IDENTITY(1,1) NOT NULL,
+	[tytuł] [varchar](50) NOT NULL,
+	[autor] [varchar](50) NOT NULL,
+	[czy_dostępna] [varchar](50) NOT NULL,
+	[dział] [varchar](50) NULL,
+	[nazwa_wydawnictwa] [varchar](50) NULL,
+ CONSTRAINT [PK_Projekt_Książki] PRIMARY KEY CLUSTERED 
+(
+	[nr_egzemplarza] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Projekt_Książki_autora]    Script Date: 10.06.2024 04:09:44 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Projekt_Książki_autora](
+	[nr_egzemplarza] [int] NOT NULL,
+	[id_autora] [int] NOT NULL,
+	[nr_wydania] [int] IDENTITY(1,1) NOT NULL,
+ CONSTRAINT [PK_Projekt_Książki_autora] PRIMARY KEY CLUSTERED 
+(
+	[nr_wydania] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Projekt_Pracownicy]    Script Date: 10.06.2024 04:09:44 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Projekt_Pracownicy](
+	[id_pracownika] [int] IDENTITY(1,1) NOT NULL,
+	[imię] [varchar](50) NOT NULL,
+	[nazwisko] [varchar](50) NOT NULL,
+	[adres_email] [varchar](50) NOT NULL,
+	[nr_telefonu] [int] NOT NULL,
+ CONSTRAINT [PK_Pracownicy] PRIMARY KEY CLUSTERED 
+(
+	[id_pracownika] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Projekt_Wypożyczenia]    Script Date: 10.06.2024 04:09:44 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Projekt_Wypożyczenia](
+	[id_wypożyczenia] [int] IDENTITY(1,1) NOT NULL,
+	[data_wypożyczenia] [date] NOT NULL,
+	[godz_wypożyczenia] [time](7) NOT NULL,
+	[data_zwrotu] [date] NOT NULL,
+	[nr_egzemplarza] [int] NOT NULL,
+	[id_pracownika] [int] NOT NULL,
+	[id_czytelnika] [int] NOT NULL,
+ CONSTRAINT [PK_Wypożyczenia] PRIMARY KEY CLUSTERED 
+(
+	[id_wypożyczenia] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Projekt_Autorzy] ON 
+
+INSERT [dbo].[Projekt_Autorzy] ([id_autora], [imię], [nazwisko], [data_urodzenia], [narodowość]) VALUES (1, N'Adam', N'Mickiewicz', CAST(N'1790-03-21' AS Date), N'Polak')
+INSERT [dbo].[Projekt_Autorzy] ([id_autora], [imię], [nazwisko], [data_urodzenia], [narodowość]) VALUES (3, N'Jon ', N'Flanagan', CAST(N'1989-04-21' AS Date), N'Amerykanin')
+INSERT [dbo].[Projekt_Autorzy] ([id_autora], [imię], [nazwisko], [data_urodzenia], [narodowość]) VALUES (4, N'Frank', N'Herbert', CAST(N'1973-09-27' AS Date), N'Anglik')
+INSERT [dbo].[Projekt_Autorzy] ([id_autora], [imię], [nazwisko], [data_urodzenia], [narodowość]) VALUES (5, N'Christopher', N'Paollini', CAST(N'1985-02-21' AS Date), N'Francuz')
+INSERT [dbo].[Projekt_Autorzy] ([id_autora], [imię], [nazwisko], [data_urodzenia], [narodowość]) VALUES (6, N'Jon', N'Smith', CAST(N'1974-09-13' AS Date), NULL)
+INSERT [dbo].[Projekt_Autorzy] ([id_autora], [imię], [nazwisko], [data_urodzenia], [narodowość]) VALUES (7, N'George', N'Martin', NULL, NULL)
+SET IDENTITY_INSERT [dbo].[Projekt_Autorzy] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Projekt_Czytelnicy] ON 
+
+INSERT [dbo].[Projekt_Czytelnicy] ([id_czytelnika], [imię], [nazwisko], [nr telefonu], [data urodzenia]) VALUES (1, N'Adam', N'Nowa', 123123123, CAST(N'2003-03-24' AS Date))
+INSERT [dbo].[Projekt_Czytelnicy] ([id_czytelnika], [imię], [nazwisko], [nr telefonu], [data urodzenia]) VALUES (2, N'Maria', N'Kowalska', 145145145, CAST(N'2004-08-26' AS Date))
+INSERT [dbo].[Projekt_Czytelnicy] ([id_czytelnika], [imię], [nazwisko], [nr telefonu], [data urodzenia]) VALUES (3, N'Barbara', N'Kowal', NULL, NULL)
+INSERT [dbo].[Projekt_Czytelnicy] ([id_czytelnika], [imię], [nazwisko], [nr telefonu], [data urodzenia]) VALUES (4, N'Katarzyna', N'Nosowska', NULL, NULL)
+INSERT [dbo].[Projekt_Czytelnicy] ([id_czytelnika], [imię], [nazwisko], [nr telefonu], [data urodzenia]) VALUES (5, N'Tomasz', N'Piasecki', 656789098, CAST(N'1992-12-30' AS Date))
+INSERT [dbo].[Projekt_Czytelnicy] ([id_czytelnika], [imię], [nazwisko], [nr telefonu], [data urodzenia]) VALUES (6, N'Konrad', N'Nowakowski', NULL, NULL)
+INSERT [dbo].[Projekt_Czytelnicy] ([id_czytelnika], [imię], [nazwisko], [nr telefonu], [data urodzenia]) VALUES (7, N'Nikola', N'Krajewska', 352873928, CAST(N'1999-05-19' AS Date))
+SET IDENTITY_INSERT [dbo].[Projekt_Czytelnicy] OFF
+GO
+INSERT [dbo].[Projekt_Działy] ([nazwa], [ilość_książek], [liczba_autorów], [liczba_poddziałów]) VALUES (N'Fantastyka', 20, 10, 3)
+INSERT [dbo].[Projekt_Działy] ([nazwa], [ilość_książek], [liczba_autorów], [liczba_poddziałów]) VALUES (N'Filozofia', 2, 3, 1)
+INSERT [dbo].[Projekt_Działy] ([nazwa], [ilość_książek], [liczba_autorów], [liczba_poddziałów]) VALUES (N'Kryminał', 21, 16, 4)
+INSERT [dbo].[Projekt_Działy] ([nazwa], [ilość_książek], [liczba_autorów], [liczba_poddziałów]) VALUES (N'Literatura Młodzieżowa', 18, 12, 3)
+INSERT [dbo].[Projekt_Działy] ([nazwa], [ilość_książek], [liczba_autorów], [liczba_poddziałów]) VALUES (N'Literatura Piękna polska', 40, 30, 2)
+INSERT [dbo].[Projekt_Działy] ([nazwa], [ilość_książek], [liczba_autorów], [liczba_poddziałów]) VALUES (N'Popularno-naukowe', 14, 11, 1)
+INSERT [dbo].[Projekt_Działy] ([nazwa], [ilość_książek], [liczba_autorów], [liczba_poddziałów]) VALUES (N'Reportaż', 23, 19, 2)
+INSERT [dbo].[Projekt_Działy] ([nazwa], [ilość_książek], [liczba_autorów], [liczba_poddziałów]) VALUES (N'Sci-Fi', 25, 12, 4)
+GO
+SET IDENTITY_INSERT [dbo].[Projekt_Książki] ON 
+
+INSERT [dbo].[Projekt_Książki] ([nr_egzemplarza], [tytuł], [autor], [czy_dostępna], [dział], [nazwa_wydawnictwa]) VALUES (1, N'Gra o Tron', N'George Martin', N'tak', N'Fantastyka', N'Nieznane')
+INSERT [dbo].[Projekt_Książki] ([nr_egzemplarza], [tytuł], [autor], [czy_dostępna], [dział], [nazwa_wydawnictwa]) VALUES (2, N'Zwiadowcy', N'Jon Flanagan', N'nie', N'Fantastyka', N'Kolorowe')
+INSERT [dbo].[Projekt_Książki] ([nr_egzemplarza], [tytuł], [autor], [czy_dostępna], [dział], [nazwa_wydawnictwa]) VALUES (3, N'Diuna', N'Frank Herbert', N'tak', N'Sci-Fi', NULL)
+INSERT [dbo].[Projekt_Książki] ([nr_egzemplarza], [tytuł], [autor], [czy_dostępna], [dział], [nazwa_wydawnictwa]) VALUES (4, N'Ostatnia wyprawa', N'Jon Smith', N'nie', N'Reportaż', NULL)
+INSERT [dbo].[Projekt_Książki] ([nr_egzemplarza], [tytuł], [autor], [czy_dostępna], [dział], [nazwa_wydawnictwa]) VALUES (5, N'Eragon', N'Christopher Paolini', N'tak', N'Fantastyka', N'Kolorowe')
+INSERT [dbo].[Projekt_Książki] ([nr_egzemplarza], [tytuł], [autor], [czy_dostępna], [dział], [nazwa_wydawnictwa]) VALUES (6, N'Dziady', N'Adam Mickiewicz', N'tak', N'Literatura Piękna polska', NULL)
+SET IDENTITY_INSERT [dbo].[Projekt_Książki] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Projekt_Książki_autora] ON 
+
+INSERT [dbo].[Projekt_Książki_autora] ([nr_egzemplarza], [id_autora], [nr_wydania]) VALUES (1, 1, 1)
+INSERT [dbo].[Projekt_Książki_autora] ([nr_egzemplarza], [id_autora], [nr_wydania]) VALUES (2, 3, 2)
+INSERT [dbo].[Projekt_Książki_autora] ([nr_egzemplarza], [id_autora], [nr_wydania]) VALUES (3, 5, 3)
+INSERT [dbo].[Projekt_Książki_autora] ([nr_egzemplarza], [id_autora], [nr_wydania]) VALUES (4, 6, 4)
+SET IDENTITY_INSERT [dbo].[Projekt_Książki_autora] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Projekt_Pracownicy] ON 
+
+INSERT [dbo].[Projekt_Pracownicy] ([id_pracownika], [imię], [nazwisko], [adres_email], [nr_telefonu]) VALUES (2, N'Małgorzata ', N'Kożuchowska', N'kozych@wp.pl', 12321231)
+INSERT [dbo].[Projekt_Pracownicy] ([id_pracownika], [imię], [nazwisko], [adres_email], [nr_telefonu]) VALUES (3, N'Tomasz', N'Karolak', N'karol@wk.pl', 123123123)
+INSERT [dbo].[Projekt_Pracownicy] ([id_pracownika], [imię], [nazwisko], [adres_email], [nr_telefonu]) VALUES (4, N'Maja', N'Górna', N'maj@wp.com', 287283895)
+INSERT [dbo].[Projekt_Pracownicy] ([id_pracownika], [imię], [nazwisko], [adres_email], [nr_telefonu]) VALUES (5, N'Dominika', N'Racka', N'rack@ny.com', 984873902)
+INSERT [dbo].[Projekt_Pracownicy] ([id_pracownika], [imię], [nazwisko], [adres_email], [nr_telefonu]) VALUES (6, N'Karolina', N'Kowalska', N'kowal@wp.pld', 267348290)
+SET IDENTITY_INSERT [dbo].[Projekt_Pracownicy] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Projekt_Wypożyczenia] ON 
+
+INSERT [dbo].[Projekt_Wypożyczenia] ([id_wypożyczenia], [data_wypożyczenia], [godz_wypożyczenia], [data_zwrotu], [nr_egzemplarza], [id_pracownika], [id_czytelnika]) VALUES (15, CAST(N'2024-03-19' AS Date), CAST(N'14:00:00' AS Time), CAST(N'2024-05-29' AS Date), 1, 2, 1)
+INSERT [dbo].[Projekt_Wypożyczenia] ([id_wypożyczenia], [data_wypożyczenia], [godz_wypożyczenia], [data_zwrotu], [nr_egzemplarza], [id_pracownika], [id_czytelnika]) VALUES (16, CAST(N'2023-12-09' AS Date), CAST(N'15:49:00' AS Time), CAST(N'2024-06-21' AS Date), 2, 3, 2)
+INSERT [dbo].[Projekt_Wypożyczenia] ([id_wypożyczenia], [data_wypożyczenia], [godz_wypożyczenia], [data_zwrotu], [nr_egzemplarza], [id_pracownika], [id_czytelnika]) VALUES (17, CAST(N'2024-05-01' AS Date), CAST(N'11:21:00' AS Time), CAST(N'2024-11-09' AS Date), 3, 2, 3)
+INSERT [dbo].[Projekt_Wypożyczenia] ([id_wypożyczenia], [data_wypożyczenia], [godz_wypożyczenia], [data_zwrotu], [nr_egzemplarza], [id_pracownika], [id_czytelnika]) VALUES (18, CAST(N'2023-09-14' AS Date), CAST(N'10:54:00' AS Time), CAST(N'2024-03-29' AS Date), 5, 5, 2)
+SET IDENTITY_INSERT [dbo].[Projekt_Wypożyczenia] OFF
+GO
+ALTER TABLE [dbo].[Projekt_Książki]  WITH CHECK ADD  CONSTRAINT [FK_Projekt_Książki_Projekt_Działy] FOREIGN KEY([dział])
+REFERENCES [dbo].[Projekt_Działy] ([nazwa])
+GO
+ALTER TABLE [dbo].[Projekt_Książki] CHECK CONSTRAINT [FK_Projekt_Książki_Projekt_Działy]
+GO
+ALTER TABLE [dbo].[Projekt_Książki_autora]  WITH CHECK ADD  CONSTRAINT [FK_Projekt_Książki_autora_Projekt_Autorzy] FOREIGN KEY([id_autora])
+REFERENCES [dbo].[Projekt_Autorzy] ([id_autora])
+GO
+ALTER TABLE [dbo].[Projekt_Książki_autora] CHECK CONSTRAINT [FK_Projekt_Książki_autora_Projekt_Autorzy]
+GO
+ALTER TABLE [dbo].[Projekt_Książki_autora]  WITH CHECK ADD  CONSTRAINT [FK_Projekt_Książki_autora_Projekt_Książki] FOREIGN KEY([id_autora])
+REFERENCES [dbo].[Projekt_Książki] ([nr_egzemplarza])
+GO
+ALTER TABLE [dbo].[Projekt_Książki_autora] CHECK CONSTRAINT [FK_Projekt_Książki_autora_Projekt_Książki]
+GO
+ALTER TABLE [dbo].[Projekt_Wypożyczenia]  WITH CHECK ADD  CONSTRAINT [FK_Projekt_Wypożyczenia_Projekt_Czytelnicy] FOREIGN KEY([id_czytelnika])
+REFERENCES [dbo].[Projekt_Czytelnicy] ([id_czytelnika])
+GO
+ALTER TABLE [dbo].[Projekt_Wypożyczenia] CHECK CONSTRAINT [FK_Projekt_Wypożyczenia_Projekt_Czytelnicy]
+GO
+ALTER TABLE [dbo].[Projekt_Wypożyczenia]  WITH CHECK ADD  CONSTRAINT [FK_Projekt_Wypożyczenia_Projekt_Książki] FOREIGN KEY([nr_egzemplarza])
+REFERENCES [dbo].[Projekt_Książki] ([nr_egzemplarza])
+GO
+ALTER TABLE [dbo].[Projekt_Wypożyczenia] CHECK CONSTRAINT [FK_Projekt_Wypożyczenia_Projekt_Książki]
+GO
+ALTER TABLE [dbo].[Projekt_Wypożyczenia]  WITH CHECK ADD  CONSTRAINT [FK_Projekt_Wypożyczenia_Projekt_Pracownicy] FOREIGN KEY([id_pracownika])
+REFERENCES [dbo].[Projekt_Pracownicy] ([id_pracownika])
+GO
+ALTER TABLE [dbo].[Projekt_Wypożyczenia] CHECK CONSTRAINT [FK_Projekt_Wypożyczenia_Projekt_Pracownicy]
+GO
